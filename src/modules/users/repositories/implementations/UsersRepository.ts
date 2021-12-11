@@ -19,23 +19,33 @@ class UsersRepository implements IUsersRepository {
   }
 
   create({ name, email }: ICreateUserDTO): User {
-    // Complete aqui
+    const newUser = new User();
+
+    newUser.name = name;
+    newUser.email = email;
+
+    this.users.push(newUser);
+    return newUser;
+
   }
 
   findById(id: string): User | undefined {
-    // Complete aqui
+    return this.users.find((u) => u.id === id);
   }
 
   findByEmail(email: string): User | undefined {
-    // Complete aqui
+    return this.users.find((u) => u.email === email);
   }
 
   turnAdmin(receivedUser: User): User {
-    // Complete aqui
+    const listUser = this.findById(receivedUser.id);
+    listUser.admin = true;
+    listUser.updated_at = new Date();
+    return listUser;
   }
 
   list(): User[] {
-    // Complete aqui
+    return this.users;
   }
 }
 
